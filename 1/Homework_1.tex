@@ -1,0 +1,184 @@
+\documentclass{article}
+\usepackage{mathrsfs,amsmath}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{syntax}
+\usepackage{pythonhighlighting}
+\usepackage{fancyvrb}
+
+\usepackage[margin=1.4in]{geometry}
+
+\title{Homework \#1 | Fall 2021} 
+\author{Jared Dyreson\\ 
+        California State University, Fullerton}
+
+\DeclareRobustCommand{\bowtie}{%
+  \mathrel\triangleright\joinrel\mathrel\triangleleft}
+
+
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+
+\titlespacing*{\section}
+{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
+\titlespacing*{\subsection}
+{0pt}{5.5ex plus 1ex minus .2ex}{4.3ex plus .2ex}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+
+\section{Questions}
+
+\begin{enumerate}
+
+\item Order the following functions by asymptotic growth rate: \\
+
+$$4n, 2^{\log(n)}, 4n \times \log(n) + 2n, 2^{10}, 3n + 100\times \log(n) \times, 2^{n}, n^{2} + 10n, n^{3}, n \times \log(n)$$ \\
+State the asymptotic growth rate for each of the functions in terms of Big-Oh and explicitly order them from least to greatest.
+
+
+\begin{itemize}
+\item $2 ^ {10} \implies O(1)$. Running time is independent of the input size.
+\item $2^{\log(n)} \implies O(n)$ ? I would assume the log and 2 would cancel each other out in an event like this: $2^{\log_2(n)}$. Unsure about this one.
+\item $3n + 100 \times log(n) \implies O(n)$
+\item $4n \implies O(n)$
+\item $n \times \log(n) \implies O(n \times \log(n))$
+\item $4n \times \log(n) + 2n \implies O(n \times \log(n))$
+\item $n^{2} + 10n \implies O(n^{2})$
+\item $n^{3} \implies O(n^{3})$
+\item $2^{n} \implies O(2^{n}) \rightarrow$ exponential.
+\end{itemize}
+
+\item Write a problem definition and pseudocode for each of the following problems.
+\begin{itemize}
+\item Computing a square root
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|l|}
+\hline
+\textit{computing a square root} \\ \hline
+\textbf{input}: an real integer that is greater than or equal to 0 \\ \hline
+\textbf{output}: a floating point integer that is the resultant of a square root operation \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{python}
+# Compute square root
+def square_root_function(value):
+    # Driver code should recognize that -1 denotes failure
+    if value is less than 0, then return -1
+    else return value ** 0.5 # value raised to the 1/2 power
+\end{python}
+
+\item Determining whether an integer is even or odd
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|l|}
+\hline
+\textit{determine whether integer is even or odd} \\ \hline
+\textbf{input}: a real integer that is greater than or equal to 0 \\ \hline
+\textbf{output}: a boolean value denoting status (true for even, false for odd) \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{python}
+# Check if integer is even or odd
+def even_or_odd(value):
+    # even values should not have a remainder, thus equal to 0
+    return (value % 2 == 0)
+
+\end{python}
+
+\newpage
+
+\item Determining whether every element in a sequence is identical
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|l|}
+\hline
+\textit{determine whether all sequence elements are identical} \\ \hline
+\textbf{input}: a non-empty sequence that contains elements that are comparable with one another \\ \hline
+\textbf{output}: a boolean value denoting status of homogeneity \\ \hline
+\end{tabular}
+
+
+\end{table}
+
+\begin{python}
+# Check if sequence has all the same elements
+def contains_same_elements(container: list[int]):
+    if container is empty:
+        return None
+    top_most = container[0]
+    x = 0
+    for element in container:
+        if(container[x] != top_most)
+            return False
+        top_most = container[x]
+        x = x + 1
+    return True
+\end{python}
+
+
+\end{itemize}
+
+\item Consider the following algorithm:
+\begin{Verbatim}
+Algorithm Calc(a, n):
+    Input: two integers, a and n
+    Output: ?
+    k <- 0
+    b <- 1
+    while k < n do
+        k <- k + 1
+        b <- b * a
+    return b
+\end{Verbatim}
+
+\begin{python}
+def calc(a: int, n: int) -> int:
+    k, b = 0, 1
+    while(k < n):
+        k += 1
+        b *= a
+        # two atomics, this is what a for loop is when broken down into smaller components
+    return b
+\end{python}
+
+\begin{itemize}
+\item What does the algorithm calculate?: The value of $b$ continuously multiplied by a factor of $a$, $n$ times. $k$ is simply an index counter, and this entire expression can be written as a for loop:
+\begin{python}
+def calc(a: int, n: int) -> int:
+    b = 1 # 1
+    for _ in range(0, n): # one atomic
+        b *= a
+        # two atomics
+    return b
+\end{python}
+\item Analyze its worst-case running time and express it using Big-Oh notation: Well we can tell that this function will at max run $n$ times. Coutning each instruction in this algorithm will allow us to determine that $T(n) = 3n + 3$. We can assume this is a linear operation, as seen in the for/while loop condition. Thus classifying it as $O(n)$.
+\end{itemize}
+
+\end{enumerate}
+
+
+
+\end{document}
+
